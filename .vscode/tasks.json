@@ -1,0 +1,48 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "cppbuild",
+			"label": "Compile",
+			"command": "C:\\MinGW\\bin\\gcc.exe",
+			"args": [
+				"-g",
+				"${file}",
+				"-o",
+				"${fileDirname}\\${fileBasenameNoExtension}.exe",
+				"-Wall",
+				"-Wextra",
+				"-Wpedantic",
+				"-I",
+				"${workspaceFolder}",
+				"${workspaceFolder}/GL_env/lib/glut32.lib",
+				"${workspaceFolder}/GL_env/lib/libopengl32.a",
+				"${workspaceFolder}/GL_env/lib/libglu32.a",
+				"${workspaceFolder}/GL_env/lib/libglfw3dll.a",
+				"${workspaceFolder}/GL_env/lib/glfw3dll.lib"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"detail": "Compiler: C:\\MinGW\\bin\\gcc.exe"
+		},
+		{
+			"type": "shell",
+			"command": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"dependsOn": [
+				"Compile"
+			],
+			"label": "Compile and Run"
+		}
+	]
+}
