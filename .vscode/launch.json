@@ -7,21 +7,20 @@
       "request": "launch",
       "args": [],
       "stopAtEntry": false,
-      "cwd": "${workspaceFolder}",
+      "cwd": "f:\\workspace\\CG\\experiments-Furyton",
       "environment": [],
-      "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+      "program": "f:\\workspace\\CG\\experiments-Furyton\\build\\Debug\\outDebug",
       "internalConsoleOptions": "openOnSessionStart",
       "MIMode": "gdb",
-      "miDebuggerPath": "gdb.exe",
-      "externalConsole": true,
+      "miDebuggerPath": "C:\\MinGW\\bin\\gdb.exe",
+      "externalConsole": false,
       "setupCommands": [
         {
           "description": "Enable pretty-printing for gdb",
           "text": "-enable-pretty-printing",
           "ignoreFailures": true
         }
-      ],
-      "preLaunchTask": "Compile"
+      ]
     }
   ]
 }

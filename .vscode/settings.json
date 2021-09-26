@@ -8,7 +8,7 @@
   "C_Cpp_Runner.includePaths": [
     "${workspaceFolder}",
     "${workspaceFolder}/GL",
-    "C:\\MinGW\\include"
+    "C:\\MINGW64\\mingw64\\include"
   ],
   "C_Cpp_Runner.linkerArgs": [],
   "C_Cpp_Runner.cStandard": "",
@@ -16,8 +16,8 @@
   "C_Cpp_Runner.excludeSearch": [],
   "C_Cpp_Runner.enableWarnings": true,
   "C_Cpp_Runner.warningsAsError": false,
-  "C_Cpp_Runner.cCompilerPath": "C:\\MinGW\\bin\\gcc.exe",
+  "C_Cpp_Runner.cCompilerPath": "C:\\tmp\\MINGW\\mingw32\\bin\\gcc.exe",
   "C_Cpp_Runner.cppCompilerPath": "C:\\MinGW\\bin\\g++.exe",
-  "C_Cpp_Runner.debuggerPath": "gdb.exe",
+  "C_Cpp_Runner.debuggerPath": "C:\\MinGW\\bin\\gdb.exe",
   "C_Cpp_Runner.makePath": "C:\\MinGW\\bin\\make.exe"
 }

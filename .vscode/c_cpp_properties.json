@@ -1,17 +1,17 @@
 {
   "configurations": [
     {
-      "name": "windows-gcc-x86",
+      "name": "windows-gcc-x64",
       "includePath": [
         "${workspaceFolder}/**",
         "${workspaceFolder}",
         "${workspaceFolder}/GL",
-        "C:\\MinGW\\include"
+        "C:\\MINGW64\\mingw64\\include"
       ],
-      "compilerPath": "C:\\MinGW\\bin\\gcc.exe",
+      "compilerPath": "C:\\tmp\\MINGW\\mingw32\\bin\\gcc.exe",
       "cStandard": "${default}",
       "cppStandard": "${default}",
-      "intelliSenseMode": "windows-gcc-x86",
+      "intelliSenseMode": "windows-gcc-x64",
       "compilerArgs": [
         "-Wall",
         "-Wextra",
