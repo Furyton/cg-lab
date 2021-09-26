@@ -1,47 +1,130 @@
 {
-	"version": "2.0.0",
-	"tasks": [
-		{
-			"type": "shell",
-			"label": "Compile",
-			"command": "C:\\tmp\\MINGW\\mingw32\\bin\\g++.exe",
-			"args": [
-				"-g",
-				"-std=c++17",
-				"${fileDirname}/\\*.cpp",
-				"${workspaceFolder}/src/glad.c",
-				"-I",
-				"${workspaceFolder}\\include",
-				"-L${workspaceFolder}\\lib",
-				"-lglfw3dll",
-				"-o",
-				"${fileDirname}\\${fileBasenameNoExtension}.exe"
-			],
-			"options": {
-				"cwd": "${workspaceFolder}"
-			},
-			"problemMatcher": [
-				"$gcc"
-			],
-			"group": {
-				"kind": "build",
-				"isDefault": true
-			}
-		},
-		{
-			"type": "shell",
-			"command": "${fileDirname}\\${fileBasenameNoExtension}.exe",
-			"problemMatcher": [
-				"$gcc"
-			],
-			"group": {
-				"kind": "build",
-				"isDefault": true
-			},
-			"dependsOn": [
-				"Compile"
-			],
-			"label": "Compile and Run"
-		}
-	]
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "type": "shell",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "windows": {
+                "command": "powershell",
+                "args": [
+                    "-c",
+                    "mingw32-make",
+                    "SRC=${relativeFileDirname}"
+                ]
+            },
+            "linux": {
+                "command": "bash",
+                "args": [
+                    "-c",
+                    "make"
+                ]
+            },
+            "osx": {
+                "command": "bash",
+                "args": [
+                    "-c",
+                    "make"
+                ]
+            },
+            "problemMatcher": {
+                "owner": "cpp",
+                "fileLocation": [
+                    "relative",
+                    "\\"
+                ],
+                "pattern": {
+                    "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 5
+                }
+            }
+        },
+        {
+            "label": "build & run",
+            "type": "shell",
+            "windows": {
+                "command": "powershell",
+                "args": [
+                    "-c",
+                    "mingw32-make run SRC=${relativeFileDirname}"
+                ]
+            },
+            "linux": {
+                "command": "bash",
+                "args": [
+                    "-c",
+                    "'make run'"
+                ]
+            },
+            "osx": {
+                "command": "bash",
+                "args": [
+                    "-c",
+                    "'make run'"
+                ]
+            },
+            "problemMatcher": {
+                "owner": "cpp",
+                "fileLocation": [
+                    "relative",
+                    "\\"
+                ],
+                "pattern": {
+                    "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 5
+                }
+            }
+        },
+        {
+            "label": "clean",
+            "type": "shell",
+            "windows": {
+                "command": "powershell",
+                "args": [
+                    "-c",
+                    "'mingw32-make clean'"
+                ]
+            },
+            "linux": {
+                "command": "bash",
+                "args": [
+                    "-c",
+                    "'make clean'"
+                ]
+            },
+            "osx": {
+                "command": "bash",
+                "args": [
+                    "-c",
+                    "'make clean'"
+                ]
+            },
+            "problemMatcher": {
+                "owner": "cpp",
+                "fileLocation": [
+                    "relative",
+                    "\\"
+                ],
+                "pattern": {
+                    "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 5
+                }
+            }
+        }
+    ]
 }

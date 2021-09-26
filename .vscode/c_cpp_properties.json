@@ -5,18 +5,28 @@
       "includePath": [
         "${workspaceFolder}/**",
         "${workspaceFolder}",
-        "${workspaceFolder}/GL",
-        "C:\\MINGW64\\mingw64\\include"
+        "C:/msys64/mingw64/include",
+        "C:/msys64/mingw64/x86_64-w64-mingw32/include"
       ],
-      "compilerPath": "C:\\tmp\\MINGW\\mingw32\\bin\\gcc.exe",
-      "cStandard": "${default}",
-      "cppStandard": "${default}",
+      "defines": [
+        "_DEBUG",
+        "UNICODE",
+        "_UNICODE"
+      ],
+      "compilerPath": "C:\\msys64\\mingw64\\bin\\gcc.exe",
+      "cStandard": "c11",
+      "cppStandard": "c++17",
       "intelliSenseMode": "windows-gcc-x64",
-      "compilerArgs": [
-        "-Wall",
-        "-Wextra",
-        "-Wpedantic"
-      ]
+      "browse": {
+        "path": [
+          "${workspaceFolder}",
+          "C:/msys64/mingw64/include",
+          "C:/msys64/mingw64/x86_64-w64-mingw32/include"
+        ],
+        "limitSymbolsToIncludedHeaders": true,
+        "databaseFilename": ""
+      },
+      "compilerArgs": []
     }
   ],
   "version": 4
