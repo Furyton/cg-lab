@@ -12,7 +12,7 @@ CXXFLAGS	:= -std=c++17 -Wall -Wextra -g
 # define library paths in addition to /usr/lib
 #   if I wanted to include libraries not in /usr/lib I'd specify
 #   their path using -Lpath, something like:
-LFLAGS =
+LFLAGS = -lglad -lglfw3dll
 
 # define output directory
 OUTPUT	:= output
@@ -21,7 +21,7 @@ OUTPUT	:= output
 SRC		:= experiment0
 
 # define include directory
-INCLUDE	:= include,$(SRC)\header
+INCLUDE	:= include
 
 # define lib directory
 LIB		:= lib
@@ -72,14 +72,14 @@ $(OUTPUT):
 	$(MD) $(OUTPUT)
 
 $(MAIN): $(OBJECTS) 
-	$(CXX) $(CXX_FLAGS) -I$(INCLUDE) -L$(LIB) $(OBJECTS) -o $(OUTPUTMAIN) $(LIBRARIES)
+	$(CXX) $(CXX_FLAGS) $(INCLUDES) -L$(LIB) $(OBJECTS) -o $(OUTPUTMAIN) $(LFLAGS)
 
 # this is a suffix replacement rule for building .o's from .c's
 # it uses automatic variables $<: the name of the prerequisite of
 # the rule(a .c file) and $@: the name of the target of the rule (a .o file) 
 # (see the gnu make manual section about automatic variables)
 .cpp.o:
-	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $<  -o $@
+	$(CXX) $(CXXFLAGS) $(INCLUDES) -L$(LIB) -c $<  -o $@
 
 .PHONY: clean
 clean:
