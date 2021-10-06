@@ -32,7 +32,7 @@ SOURCEDIRS	:= $(SRC)
 INCLUDEDIRS	:= $(INCLUDE)
 LIBDIRS		:= $(LIB)
 FIXPATH = $(subst /,\,$1)
-RM			:= del /q /f
+RM			:= Remove-Item
 MD	:= mkdir
 else
 MAIN	:= main
@@ -83,7 +83,7 @@ $(MAIN): $(OBJECTS)
 
 .PHONY: clean
 clean:
-	$(RM) $(OUTPUTMAIN)
+	$(RM) $(call FIXPATH,$(OUTPUTMAIN))
 	$(RM) $(call FIXPATH,$(OBJECTS))
 	@echo Cleanup complete!
 
