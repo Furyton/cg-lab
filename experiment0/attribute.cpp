@@ -8,6 +8,8 @@ Attribute::Attribute() {
     glGenBuffers(1, &EBO);
 
     tot_attr_size = 0;
+    vertices_size = 0;
+    indices_size = 0;
 }
 
 void Attribute::add_attr(int layout, int size) {
@@ -57,7 +59,7 @@ void Attribute::activate() {
     glBindVertexArray(VAO);
 }
 void Attribute::deactivate() {
-    // glBindVertexArray(0);
+    glBindVertexArray(0);
 }
 void Attribute::destroy() {
     glDeleteVertexArrays(1, &VAO);

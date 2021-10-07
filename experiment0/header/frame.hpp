@@ -21,6 +21,7 @@ public:
     void close();
     void swap_buffers();
     void polling_events();
+    void process_input();
 };
 
 #endif

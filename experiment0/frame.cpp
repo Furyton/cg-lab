@@ -32,6 +32,8 @@ int Window::init_window(int width, int height) {
 
     this->window = window;
 
+    glEnable(GL_DEPTH_TEST);
+
     return 0;
 }
 
@@ -49,4 +51,10 @@ void Window::swap_buffers() {
 
 void Window::polling_events() {
     glfwPollEvents();
+}
+
+void Window::process_input() {
+    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+        glfwSetWindowShouldClose(window, true);
+    }
 }
