@@ -1,13 +1,13 @@
 #include "header/frame.hpp"
 
-void Window::set_window_hint() {
+void MyWindow::set_window_hint() {
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 }
 
-int Window::init_window(int width, int height) {
+int MyWindow::init_window(int width, int height) {
     this->width = width;
     this->height = height;
 
@@ -33,28 +33,104 @@ int Window::init_window(int width, int height) {
     this->window = window;
 
     glEnable(GL_DEPTH_TEST);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     return 0;
 }
 
-int Window::should_close() {
+int MyWindow::should_close() {
     return glfwWindowShouldClose(window);
 }
 
-void Window::close() {
+void MyWindow::close() {
     glfwTerminate();
 }
 
-void Window::swap_buffers() {
+void MyWindow::swap_buffers() {
     glfwSwapBuffers(window);
 }
 
-void Window::polling_events() {
+void MyWindow::polling_events() {
     glfwPollEvents();
 }
 
-void Window::process_input() {
+void MyWindow::process_input(Transformers &t) {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
         glfwSetWindowShouldClose(window, true);
     }
+
+    Status s = t.get_status();
+
+
+    if (s == ROTATING) {
+        t.head_to_next_status();
+        return;
+    }
+
+    if (glfwGetKey(window, GLFW_KEY_0) == GLFW_PRESS) {
+        if (s != FREE) return;
+        else t.head_to_next_status();
+    }
+
+    if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS) {
+        if (s != FIRST) return;
+        else t.head_to_next_status();
+    }
+
+    if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS) {
+        if (s != SECOND) return;
+        else t.head_to_next_status();
+    }
+
+    if (glfwGetKey(window, GLFW_KEY_4) == GLFW_PRESS) {
+        if (s != FINISHED) return;
+        else t.head_to_next_status();
+
+    }
+    
+    s = t.get_status();
+
+    if (s == SECOND || s == FINISHED)
+        return;
+
+    if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS) {
+        t.reset_acc_rotate();
+        t.reset_acc_trans();
+
+        return;
+    }
+
+    const float speed = 0.005f;
+
+    float delta_x = 0.0f, delta_y = 0.0f, delta_z = 0.0f, norm = t.get_acc_trans_norm();
+
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+        delta_y += speed * norm;
+    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+        delta_y -= speed * norm;
+
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+        delta_x -= speed * norm;
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+        delta_x += speed * norm;
+
+    if (glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS)
+        delta_z -= speed * norm;
+    if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS)
+        delta_z += speed * norm;
+    
+    t.input_translate(delta_x, delta_y, delta_z);
+
+    const float radians = 0.001f;
+
+    if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
+        t.input_rotate(-radians, 1.0f, 0.0f, 0.0f);
+    if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
+        t.input_rotate(radians, 1.0f, 0.0f, 0.0f);
+
+    if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
+        t.input_rotate(-radians, 0.0f, 1.0f, 0.0f);
+    if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
+        t.input_rotate(radians, 0.0f, 1.0f, 0.0f);
 }

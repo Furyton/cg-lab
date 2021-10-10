@@ -5,9 +5,14 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 
-#include "callbacks.hpp"
+#include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
-class Window {
+#include "callbacks.hpp"
+#include "transformers.hpp"
+
+class MyWindow {
 private:
     GLFWwindow *window;
     int major = 3, minor = 3;
@@ -21,7 +26,7 @@ public:
     void close();
     void swap_buffers();
     void polling_events();
-    void process_input();
+    void process_input(Transformers& t);
 };
 
 #endif
