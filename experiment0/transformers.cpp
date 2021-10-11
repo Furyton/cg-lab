@@ -89,7 +89,7 @@ float Transformers::get_acc_trans_norm() {
     float x = accumulate_trans[0], y = accumulate_trans[1], z = accumulate_trans[2];
     float len = glm::sqrt(x * x + y * y + z * z);
 
-    if (len < 0.5f) return 1.0f;
+    if (len < 0.5f) return 0.5f;
     
     return len;
 

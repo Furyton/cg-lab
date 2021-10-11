@@ -100,7 +100,7 @@ void MyWindow::process_input(Transformers &t) {
         return;
     }
 
-    const float speed = 0.05f;
+    const float speed = 0.025f;
 
     float delta_x = 0.0f, delta_y = 0.0f, delta_z = 0.0f, norm = t.get_acc_trans_norm();
 

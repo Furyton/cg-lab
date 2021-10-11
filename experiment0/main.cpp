@@ -11,51 +11,11 @@
 #define DATA_PATH "./experiment0/points.data"
 
 int n;
+
+int point_num;
+
 float vertices[V];
 
-// float vertices[] = {
-//     -0.5f, -0.5f, -0.5f,
-//      0.5f, -0.5f, -0.5f,
-//      0.5f,  0.5f, -0.5f,
-//      0.5f,  0.5f, -0.5f,
-//     -0.5f,  0.5f, -0.5f,
-//     -0.5f, -0.5f, -0.5f,
-
-//     -0.5f, -0.5f,  0.5f,
-//      0.5f, -0.5f,  0.5f,
-//      0.5f,  0.5f,  0.5f,
-//      0.5f,  0.5f,  0.5f,
-//     -0.5f,  0.5f,  0.5f,
-//     -0.5f, -0.5f,  0.5f,
-
-//     -0.5f,  0.5f,  0.5f,
-//     -0.5f,  0.5f, -0.5f,
-//     -0.5f, -0.5f, -0.5f,
-//     -0.5f, -0.5f, -0.5f,
-//     -0.5f, -0.5f,  0.5f,
-//     -0.5f,  0.5f,  0.5f,
-
-//      0.5f,  0.5f,  0.5f,
-//      0.5f,  0.5f, -0.5f,
-//      0.5f, -0.5f, -0.5f,
-//      0.5f, -0.5f, -0.5f,
-//      0.5f, -0.5f,  0.5f,
-//      0.5f,  0.5f,  0.5f,
-
-//     -0.5f, -0.5f, -0.5f,
-//      0.5f, -0.5f, -0.5f,
-//      0.5f, -0.5f,  0.5f,
-//      0.5f, -0.5f,  0.5f,
-//     -0.5f, -0.5f,  0.5f,
-//     -0.5f, -0.5f, -0.5f,
-
-//     -0.5f,  0.5f, -0.5f,
-//      0.5f,  0.5f, -0.5f,
-//      0.5f,  0.5f,  0.5f,
-//      0.5f,  0.5f,  0.5f,
-//     -0.5f,  0.5f,  0.5f,
-//     -0.5f,  0.5f, -0.5f,
-// };
 
 int main() {
 
@@ -73,18 +33,15 @@ int main() {
 
     freopen(DATA_PATH, "r", stdin);
 
-    std::cin>>n;
+    std::cin>>n; // n * 3 * 3 point data
 
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < 2; j++) {
-            for (int k = 0; k < 2; k++) {
-                std::cin>>vertices[3 * i + j * 3 + k];
-            }
-        }
+    point_num = n * 9;
+
+    for (int i = 0; i < point_num; i++) {
+        std::cin>>vertices[i];
     }
 
-
-    attr.set_vertices(3 * n * 4 * 3, vertices);
+    attr.set_vertices(point_num * 4, vertices);
     
     attr.add_attr(0, 3);
     // attr.add_attr(1, 2);
@@ -116,7 +73,7 @@ int main() {
         transformer.apply_on_shader(shader);
         shader.setFloat("rate", 1.0);
 
-        glDrawArrays(GL_TRIANGLES, 0, 36);
+        glDrawArrays(GL_TRIANGLES, 0, point_num);
 
         if (transformer.get_status() >= FIRST) {
             transformer.start();
@@ -129,7 +86,7 @@ int main() {
 
             shader.setFloat("rate", 0.1);
 
-            glDrawArrays(GL_TRIANGLES, 0, 36);
+            glDrawArrays(GL_TRIANGLES, 0, point_num);
         }
 
         if (transformer.get_status() == SECOND || transformer.get_status() == ROTATING) {
@@ -143,7 +100,7 @@ int main() {
 
             shader.setFloat("rate", 0.1);
 
-            glDrawArrays(GL_TRIANGLES, 0, 36);  
+            glDrawArrays(GL_TRIANGLES, 0, point_num);  
         }
 
         attr.deactivate();
