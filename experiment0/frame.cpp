@@ -83,10 +83,9 @@ void MyWindow::process_input(Transformers &t) {
         else t.head_to_next_status();
     }
 
-    if (glfwGetKey(window, GLFW_KEY_4) == GLFW_PRESS) {
+    if (glfwGetKey(window, GLFW_KEY_3) == GLFW_PRESS) {
         if (s != FINISHED) return;
         else t.head_to_next_status();
-
     }
     
     s = t.get_status();
@@ -101,7 +100,7 @@ void MyWindow::process_input(Transformers &t) {
         return;
     }
 
-    const float speed = 0.005f;
+    const float speed = 0.05f;
 
     float delta_x = 0.0f, delta_y = 0.0f, delta_z = 0.0f, norm = t.get_acc_trans_norm();
 
@@ -115,22 +114,27 @@ void MyWindow::process_input(Transformers &t) {
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
         delta_x += speed * norm;
 
-    if (glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS)
+    if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
         delta_z -= speed * norm;
-    if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS)
+    if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
         delta_z += speed * norm;
     
     t.input_translate(delta_x, delta_y, delta_z);
 
-    const float radians = 0.001f;
+    const float radians = 0.05f;
 
-    if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
+    if (glfwGetKey(window, GLFW_KEY_U) == GLFW_PRESS)
         t.input_rotate(-radians, 1.0f, 0.0f, 0.0f);
-    if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
+    if (glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS)
         t.input_rotate(radians, 1.0f, 0.0f, 0.0f);
 
-    if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
+    if (glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS)
         t.input_rotate(-radians, 0.0f, 1.0f, 0.0f);
-    if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
+    if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS)
         t.input_rotate(radians, 0.0f, 1.0f, 0.0f);
+
+    if (glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS)
+        t.input_rotate(-radians, 0.0f, 0.0f, 1.0f);
+    if (glfwGetKey(window, GLFW_KEY_Y) == GLFW_PRESS)
+        t.input_rotate(radians, 0.0f, 0.0f, 1.0f);
 }

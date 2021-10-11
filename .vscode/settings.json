@@ -26,6 +26,7 @@
     "*.c": "c",
     "*.lex": "lex",
     "Makefile": "makefile",
-    "iostream": "cpp"
+    "iostream": "cpp",
+    "ostream": "cpp"
   }
 }

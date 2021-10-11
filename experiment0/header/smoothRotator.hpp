@@ -7,13 +7,15 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/quaternion.hpp>
 
+#include <iostream>
+
 // input target rotation matrix, translation matrix
 // ouput rotation matrix, translation matrix at time step t
+const float delta_t = 0.0075f;
 
 class SmoothRotator {
 private:
-    const float delta_t = 0.001f;
-    float t=0.0f;
+    float T = 0.0f;
 
     glm::qua<float> q_1;
     glm::vec3 trans_1;

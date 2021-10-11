@@ -84,14 +84,14 @@ void Transformers::input_translate(glm::vec3& delta) {
 }
 
 float Transformers::get_acc_trans_norm() {
-    return 1.0f;
+    // return 1.0f;
 
-    // float x = accumulate_trans[0], y = accumulate_trans[1], z = accumulate_trans[2];
-    // float len = glm::sqrt(x * x + y * y + z * z);
+    float x = accumulate_trans[0], y = accumulate_trans[1], z = accumulate_trans[2];
+    float len = glm::sqrt(x * x + y * y + z * z);
 
-    // if (len < 0.001f) return 1.0f;
+    if (len < 0.5f) return 1.0f;
     
-    // return len;
+    return len;
 
     // return accumulate_trans.length() < 1e-6f : 1.0f ? accumulate_trans.length();
 }
