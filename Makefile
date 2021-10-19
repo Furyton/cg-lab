@@ -12,7 +12,7 @@ CXXFLAGS	:= -std=c++17 -Wall -Wextra -g
 # define library paths in addition to /usr/lib
 #   if I wanted to include libraries not in /usr/lib I'd specify
 #   their path using -Lpath, something like:
-LFLAGS = -lglad -lglfw3dll
+LFLAGS = -lglad -lglfw3dll -lassimp.dll 
 
 # define output directory
 OUTPUT	:= output
@@ -32,7 +32,7 @@ SOURCEDIRS	:= $(SRC)
 INCLUDEDIRS	:= $(INCLUDE)
 LIBDIRS		:= $(LIB)
 FIXPATH = $(subst /,\,$1)
-RM			:= Remove-Item
+RM			:= rm
 MD	:= mkdir
 else
 MAIN	:= main
