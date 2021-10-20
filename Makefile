@@ -12,7 +12,7 @@ CXXFLAGS	:= -std=c++17 -Wall -Wextra -g
 # define library paths in addition to /usr/lib
 #   if I wanted to include libraries not in /usr/lib I'd specify
 #   their path using -Lpath, something like:
-LFLAGS = -lglad -lglfw3dll -lassimp.dll 
+LFLAGS = -lglad -lglfw3dll -lassimp -lzlibstatic -lobjects
 
 # define output directory
 OUTPUT	:= output
@@ -56,7 +56,7 @@ SOURCES		:= $(wildcard $(patsubst %,%/*.cpp, $(SOURCEDIRS)))
 # define the C object files 
 OBJECTS		:= $(SOURCES:.cpp=.o)
 
-LIBRARIES	:= -lglad -lglfw3dll
+# LIBRARIES	:= -lglad -lglfw3dll -lassimp -lzlibstatic
 #
 # The following part of the makefile is generic; it can be used to 
 # build any executable just by changing the definitions above and by

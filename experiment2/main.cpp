@@ -8,24 +8,16 @@
 #include <cstdio>
 
 #define V 500
-#define DATA_PATH "./data/nanosuit"
-
-int n;
-
-int point_num;
-
-float vertices[V];
-
+char* DATA_PATH = "./data/nanosuit/nanosuit.obj";
 
 int main() {
-
     MyWindow window;
 
     if (window.init_window(800, 600)) {
         return -1;
     }
 
-    Shader shader("./experiment1/shaders/shader.vs", "./experiment1/shaders/shader.fs");
+    Shader shader("./experiment2/shaders/shader.vs", "./experiment2/shaders/shader.fs");
 
     Model model(DATA_PATH);
 
@@ -55,34 +47,6 @@ int main() {
         shader.setFloat("rate", 1.0);
 
         model.draw(shader);
-
-        if (transformer.get_status() >= FIRST) {
-            transformer.start();
-            transformer.model_trans(transformer.get_trans_0());
-            transformer.model_rotate(transformer.get_rotation_0());
-
-            transformer.view_trans(0.0f, 0.0f, -3.0f);
-
-            transformer.apply_on_shader(shader);
-
-            shader.setFloat("rate", 0.1);
-
-            model.draw(shader);
-        }
-
-        if (transformer.get_status() == SECOND || transformer.get_status() == ROTATING) {
-            transformer.start();
-            transformer.model_trans(transformer.get_trans_1());
-            transformer.model_rotate(transformer.get_rotation_1());
-
-            transformer.view_trans(0.0f, 0.0f, -3.0f);
-
-            transformer.apply_on_shader(shader);
-
-            shader.setFloat("rate", 0.1);
-
-            model.draw(shader);
-        }
 
         window.swap_buffers();
         window.polling_events();
