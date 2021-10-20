@@ -1,0 +1,25 @@
+{
+  "configurations": [
+    {
+      "compilers": {
+        "cpp": {
+          "standard": "c++17",
+          "path": "C:\\msys64\\mingw64\\bin\\g++.exe"
+        }
+      },
+      "includePath": [
+        "C:\\msys64\\mingw64\\include\\c++\\10.3.0",
+        "${workspaceRoot}\\**",
+        "${workspaceRoot}\\**\\**",
+        "${workspaceRoot}\\include",
+        "C:/msys64/mingw64/include",
+        "C:/msys64/mingw64/x86_64-w64-mingw32/include"
+      ],
+      "inheritEnvironments": [
+        "mingw_64"
+      ],
+      "intelliSenseMode": "windows-msvc-x64",
+      "name": "Mingw64"
+    }
+  ]
+}

@@ -5,7 +5,7 @@
 #include "header/model.hpp"
 #include "header/transformers.hpp"
 
-#include <cstdio>
+#include <stdio.h>
 
 #define V 500
 char* DATA_PATH = "./data/nanosuit/nanosuit.obj";

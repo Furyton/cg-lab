@@ -5,7 +5,7 @@
 #include "header/attribute.hpp"
 #include "header/transformers.hpp"
 
-#include <cstdio>
+#include <stdio.h>
 
 #define V 500
 #define DATA_PATH "./experiment0/points.data"
