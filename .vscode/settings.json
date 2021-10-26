@@ -82,5 +82,8 @@
     "streambuf": "cpp",
     "cinttypes": "cpp",
     "typeinfo": "cpp"
-  }
+  },
+  "editor.acceptSuggestionOnEnter": "off",
+  "editor.quickSuggestionsDelay": 100,
+  "editor.suggest.showInlineDetails": false
 }

@@ -81,7 +81,18 @@
                     "severity": 4,
                     "message": 5
                 }
-            },
+            }
+        },
+        {
+            "label": "open image",
+            "type": "shell",
+            "command": "code image.ppm"
+        },
+        {
+            "label": "build & show image",
+            "type": "process",
+            "dependsOn": ["build & run", "open image"],
+            "dependsOrder": "sequence",
             "group": {
                 "kind": "build",
                 "isDefault": true
