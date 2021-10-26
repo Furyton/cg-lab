@@ -123,18 +123,18 @@ void MyWindow::process_input(Transformers &t) {
 
     const float radians = 0.05f;
 
-    if (glfwGetKey(window, GLFW_KEY_U) == GLFW_PRESS)
+    if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS)
         t.input_rotate(-radians, 1.0f, 0.0f, 0.0f);
     if (glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS)
         t.input_rotate(radians, 1.0f, 0.0f, 0.0f);
 
     if (glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS)
         t.input_rotate(-radians, 0.0f, 1.0f, 0.0f);
-    if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS)
+    if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS)
         t.input_rotate(radians, 0.0f, 1.0f, 0.0f);
 
-    if (glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS)
+    if (glfwGetKey(window, GLFW_KEY_U) == GLFW_PRESS)
         t.input_rotate(-radians, 0.0f, 0.0f, 1.0f);
-    if (glfwGetKey(window, GLFW_KEY_Y) == GLFW_PRESS)
+    if (glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS)
         t.input_rotate(radians, 0.0f, 0.0f, 1.0f);
 }

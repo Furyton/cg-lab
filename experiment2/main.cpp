@@ -26,6 +26,8 @@ int main() {
     transformer.reset_acc_rotate();
     transformer.reset_acc_trans();
 
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); 
+
     while(!window.should_close()) {
         window.process_input(transformer);
 
