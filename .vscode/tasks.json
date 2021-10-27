@@ -86,7 +86,13 @@
         {
             "label": "open image",
             "type": "shell",
-            "command": "code image.ppm"
+            "windows": {
+                "command": "powershell",
+                "args": [
+                    "-c",
+                    "code image.ppm"
+                ]
+            },
         },
         {
             "label": "build & show image",
