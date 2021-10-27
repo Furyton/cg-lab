@@ -17,7 +17,7 @@ int main() {
         return -1;
     }
 
-    Shader shader("./experiment2/shaders/shader.vs", "./experiment2/shaders/shader.fs");
+    Shader shader("./simple_phone_model/shaders/shader.vs", "./simple_phone_model/shaders/shader.fs");
 
     Model model(DATA_PATH);
 
