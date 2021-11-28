@@ -81,6 +81,10 @@
                     "severity": 4,
                     "message": 5
                 }
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
             }
         },
         {
@@ -98,11 +102,7 @@
             "label": "build & show image",
             "type": "process",
             "dependsOn": ["build & run", "open image"],
-            "dependsOrder": "sequence",
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
+            "dependsOrder": "sequence"
         },
         {
             "label": "clean",
