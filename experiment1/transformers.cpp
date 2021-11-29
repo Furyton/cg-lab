@@ -8,6 +8,14 @@ Transformers::Transformers(Transformers& t) {
     reset_acc_rotate();
     reset_acc_trans();
 }
+void Transformers::inherit(Transformers& t) {
+    model = glm::mat4(t.model);
+    view = glm::mat4(t.view);
+    projection = glm::mat4(t.projection);
+
+    reset_acc_rotate();
+    reset_acc_trans();
+}
 
 void Transformers::start() {
     model = glm::mat4(1.0f);

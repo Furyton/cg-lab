@@ -31,6 +31,7 @@ public:
     void start();
     void reset_acc_rotate();
     void reset_acc_trans();
+    void inherit(Transformers&);
 
     // rotate around the origin in local coodinate system
     void model_rotate(float radians, glm::vec3& axis);
