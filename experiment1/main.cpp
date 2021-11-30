@@ -16,16 +16,11 @@ int n;
 
 int point_num;
 
-// Vertex anchor[3] 
-float anchor[3][3] = {{-0.5f, -0.5f, -0.5f}, 
-                    {-0.125f, -0.5f, -0.125f},
-                    {-0.25f, -0.25f, -0.25f}};
+float z[4] = {1.0f, 0.25f, 0.75f, 0.45f}; // body, limb, hand, leg
+float y[4] = {1.0f, 0.75f, 0.75f, 0.75f};
+float x[4] = {1.0f, 0.25f, 0.75f, 0.45f};
 
-float z[3] = {1.0f, 0.25f, 0.5f};
-float y[3] = {1.0f, 1.0f, 0.5f};
-float x[3] = {1.0f, 0.25f, 0.5f};
-
-void trans_it(Transformers curt, Transformers f, Shader& shader, Attribute& attr, glm::vec3 delta, glm::vec3 rotate_anchor, glm::vec3 rotate_axis, float radius, glm::vec3 color_offset) {
+void trans_it(Transformers& curt, Transformers& f, Shader& shader, Attribute& attr, glm::vec3 delta, glm::vec3 rotate_anchor, glm::vec3 rotate_axis, float radius, glm::vec3 color_offset) {
         attr.activate();
 
         shader.setVec3("offset_color", color_offset);
@@ -61,9 +56,7 @@ void trans_it(Transformers curt, Transformers f, Shader& shader, Attribute& attr
         attr.deactivate();
 }
 
-
 int main() {
-
     MyWindow window;
 
     if (window.init_window(800, 600)) {
@@ -72,14 +65,14 @@ int main() {
 
     Shader shader("./experiment1/shaders/shader.vs", "./experiment1/shaders/shader.fs");
 
-    Attribute attr[3];
+    Attribute attr[4];
 
-    Transformers body, limb, head;
+    Transformers body, limb, head, hand;
 
     point_num = 12 * 9;
 
-    for (int i = 0; i < 3; i++ ){
-        attr[i].set_vertices(point_num * 4, get_vertex(anchor[i], z[i], y[i], x[i]));
+    for (int i = 0; i < 4; i++ ){
+        attr[i].set_vertices(point_num * 4, get_vertex(z[i], y[i], x[i]));
 
         attr[i].add_attr(0, 3);
         attr[i].build(GL_STATIC_DRAW);
@@ -113,19 +106,40 @@ int main() {
         glDrawArrays(GL_TRIANGLES, 0, point_num);
         attr[0].deactivate();
 
-        float repeat_0_1 = sin(t * 10) * 0.5 + 0.5;
+        float repeat_0_1 = sin(t * 3);
         float radius = repeat_0_1 * 0.5;
-
-        trans_it(limb, body, shader, attr[1], glm::vec3(x[0] / 2 + x[1] / 2, 0.0f, 0.0f), glm::vec3(x[1] / 2, -y[1] / 2, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f), radius, glm::vec3(1, 0.75, 0.5));
-
-        trans_it(limb, body, shader, attr[1], glm::vec3(-(x[0] / 2 + x[1] / 2), 0.0f, 0.0f), glm::vec3(-x[1] / 2, -y[1] / 2, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f), -radius, glm::vec3(1, 0.75, 0.5));
-
-        trans_it(limb, body, shader, attr[1], glm::vec3(x[1], -y[1], 0.0f), glm::vec3(0.0f, -y[1] / 2, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f), radius, glm::vec3(1, 0.75, 0.5));
     
-        trans_it(limb, body, shader, attr[1], glm::vec3(-x[1], -y[1], 0.0f), glm::vec3(0.0f, -y[1] / 2, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f), -radius, glm::vec3(1, 0.75, 0.5));
+        // right arm
+
+        trans_it(limb, body, shader, attr[1], glm::vec3(x[0] / 2 + x[1] / 2 + 0.125, 0.0f, 0.0f), glm::vec3(0.0f, -y[1] / 2, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f), radius, glm::vec3(1, 0.75, 0.5));
+
+        // right hand
+
+        trans_it(limb, limb, shader, attr[1], glm::vec3(0.0f, - y[1] - 0.0125f, 0.0f), glm::vec3(0.0f, -0.5 * y[1], -0.5 * z[1]), glm::vec3(1.0f, 0.0f, 0.0f), 0.5 * (radius - 0.5f), glm::vec3(1, 0.75, 0.5));
 
 
-        trans_it(head, body, shader, attr[2], glm::vec3(0.0f, y[2] / 2 + y[0] / 2, 0.0f), glm::vec3(0, 1, 1));
+        // left arm
+
+        trans_it(limb, body, shader, attr[1], glm::vec3(-(x[0] / 2 + x[1] / 2 + 0.125), 0.0f, 0.0f), glm::vec3(0.0f, -y[1] / 2, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f), -radius, glm::vec3(1, 0.75, 0.5));
+        
+        // left hand
+
+        trans_it(limb, limb, shader, attr[1], glm::vec3(0.0f, - y[1] - 0.0125f, 0.0f), glm::vec3(0.0f, -0.5 * y[1], -0.5 * z[1]), glm::vec3(1.0f, 0.0f, 0.0f), 0.5 * (-radius - 0.5f), glm::vec3(1, 0.75, 0.5));
+
+        // left leg
+
+        trans_it(limb, body, shader, attr[3], glm::vec3(0.25 * x[0], - 0.5 * (y[3] + y[0] + 0.125f), 0.0f), glm::vec3(0.0f, -y[3] / 2, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f), radius, glm::vec3(1, 0.75, 0.5));
+
+        trans_it(limb, limb, shader, attr[3], glm::vec3(0.0f, - y[1] - 0.1f, 0.0f), glm::vec3(0.0f, -0.5 * y[1], -0.5 * z[1]), glm::vec3(1.0f, 0.0f, 0.0f), -0.5 * (radius - 0.5f), glm::vec3(1, 0.75, 0.5));
+
+        // right leg
+
+        trans_it(limb, body, shader, attr[3], glm::vec3(-0.25 * x[0], - 0.5 * (y[3] + y[0] + 0.125f), 0.0f), glm::vec3(0.0f, -y[3] / 2, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f), -radius, glm::vec3(1, 0.75, 0.5));
+    
+        trans_it(limb, limb, shader, attr[3], glm::vec3(0.0f, - y[1] - 0.1f, 0.0f), glm::vec3(0.0f, -0.5 * y[1], -0.5 * z[1]), glm::vec3(1.0f, 0.0f, 0.0f), -0.5 * (-radius - 0.5f), glm::vec3(1, 0.75, 0.5));
+
+
+        trans_it(head, body, shader, attr[2], glm::vec3(0.0f, y[2] / 2 + y[0] / 2 + 0.125f, 0.0f), glm::vec3(0, 1, 1));
 
         window.swap_buffers();
         window.polling_events();

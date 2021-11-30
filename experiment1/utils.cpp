@@ -1,7 +1,9 @@
 #include "header/utils.hpp"
 
-float* get_vertex(float p[], float height, float width, float depth) {
+float* get_vertex(float height, float width, float depth) {
     Vertex v[8];
+
+    float p[] = {-0.5 * height, -0.5 * width, -0.5 * depth};
 
     int t = 0;
     for (int i = 0; i < 2; i++)

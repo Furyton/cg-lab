@@ -26,4 +26,4 @@ struct Face {
     }
 };
 
-float* get_vertex(float p[], float height, float width, float depth);
+float* get_vertex(float height, float width, float depth);
