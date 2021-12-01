@@ -111,33 +111,38 @@ int main() {
     
         // right arm
 
-        trans_it(limb, body, shader, attr[1], glm::vec3(x[0] / 2 + x[1] / 2 + 0.125, 0.0f, 0.0f), glm::vec3(0.0f, -y[1] / 2, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f), radius, glm::vec3(1, 0.75, 0.5));
+        trans_it(limb, body, shader, attr[1], glm::vec3(x[0] / 2 + x[1] / 2 + 0.125, 0.0f, 0.0f), glm::vec3(0.0f, -y[1] / 2, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f), -radius, glm::vec3(1, 0.75, 0.5));
 
         // right hand
 
-        trans_it(limb, limb, shader, attr[1], glm::vec3(0.0f, - y[1] - 0.0125f, 0.0f), glm::vec3(0.0f, -0.5 * y[1], -0.5 * z[1]), glm::vec3(1.0f, 0.0f, 0.0f), 0.5 * (radius - 0.5f), glm::vec3(1, 0.75, 0.5));
+        trans_it(limb, limb, shader, attr[1], glm::vec3(0.0f, - y[1] - 0.0125f, 0.0f), glm::vec3(0.0f, -0.5 * y[1], -0.5 * z[1]), glm::vec3(1.0f, 0.0f, 0.0f), 0.5 * (-radius - 0.5f), glm::vec3(1, 0.75, 0.5));
 
 
         // left arm
 
-        trans_it(limb, body, shader, attr[1], glm::vec3(-(x[0] / 2 + x[1] / 2 + 0.125), 0.0f, 0.0f), glm::vec3(0.0f, -y[1] / 2, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f), -radius, glm::vec3(1, 0.75, 0.5));
+        trans_it(limb, body, shader, attr[1], glm::vec3(-(x[0] / 2 + x[1] / 2 + 0.125), 0.0f, 0.0f), glm::vec3(0.0f, -y[1] / 2, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f), radius, glm::vec3(1, 0.75, 0.5));
         
         // left hand
 
-        trans_it(limb, limb, shader, attr[1], glm::vec3(0.0f, - y[1] - 0.0125f, 0.0f), glm::vec3(0.0f, -0.5 * y[1], -0.5 * z[1]), glm::vec3(1.0f, 0.0f, 0.0f), 0.5 * (-radius - 0.5f), glm::vec3(1, 0.75, 0.5));
+        trans_it(limb, limb, shader, attr[1], glm::vec3(0.0f, - y[1] - 0.0125f, 0.0f), glm::vec3(0.0f, -0.5 * y[1], -0.5 * z[1]), glm::vec3(1.0f, 0.0f, 0.0f), 0.5 * (radius - 0.5f), glm::vec3(1, 0.75, 0.5));
 
         // left leg
 
-        trans_it(limb, body, shader, attr[3], glm::vec3(0.25 * x[0], - 0.5 * (y[3] + y[0] + 0.125f), 0.0f), glm::vec3(0.0f, -y[3] / 2, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f), radius, glm::vec3(1, 0.75, 0.5));
+        trans_it(limb, body, shader, attr[3], glm::vec3(0.25 * x[0], - 0.5 * (y[3] + y[0] + 0.125f), 0.0f), glm::vec3(0.0f, -y[3] / 2, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f), radius - 0.1f, glm::vec3(1, 0.75, 0.5));
+
+        // left lower leg
 
         trans_it(limb, limb, shader, attr[3], glm::vec3(0.0f, - y[1] - 0.1f, 0.0f), glm::vec3(0.0f, -0.5 * y[1], -0.5 * z[1]), glm::vec3(1.0f, 0.0f, 0.0f), -0.5 * (radius - 0.5f), glm::vec3(1, 0.75, 0.5));
 
         // right leg
 
-        trans_it(limb, body, shader, attr[3], glm::vec3(-0.25 * x[0], - 0.5 * (y[3] + y[0] + 0.125f), 0.0f), glm::vec3(0.0f, -y[3] / 2, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f), -radius, glm::vec3(1, 0.75, 0.5));
+        trans_it(limb, body, shader, attr[3], glm::vec3(-0.25 * x[0], - 0.5 * (y[3] + y[0] + 0.125f), 0.0f), glm::vec3(0.0f, -y[3] / 2, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f), -radius -0.1f, glm::vec3(1, 0.75, 0.5));
     
+        // left lower leg
+
         trans_it(limb, limb, shader, attr[3], glm::vec3(0.0f, - y[1] - 0.1f, 0.0f), glm::vec3(0.0f, -0.5 * y[1], -0.5 * z[1]), glm::vec3(1.0f, 0.0f, 0.0f), -0.5 * (-radius - 0.5f), glm::vec3(1, 0.75, 0.5));
 
+        // head
 
         trans_it(head, body, shader, attr[2], glm::vec3(0.0f, y[2] / 2 + y[0] / 2 + 0.125f, 0.0f), glm::vec3(0, 1, 1));
 
