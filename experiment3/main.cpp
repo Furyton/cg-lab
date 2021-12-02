@@ -1,53 +1,32 @@
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-#include <iostream>
-#include "header/test.h"
-// settings
-const unsigned int SCR_WIDTH = 800;
-const unsigned int SCR_HEIGHT = 600;
-int main()
-{
-    // glfw: initialize and configure
-    // ------------------------------
-    std::cout<<a<<std::endl;
-    
-    glfwInit();
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-#ifdef __APPLE__
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); //uncomment this statement to fix compilation on OS X
-#endif
-    // glfw window creation
-    // --------------------
-    GLFWwindow *window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT,"LearnOpenGL", NULL, NULL);
-    if (window == NULL)
-    {
-        std::cout << "Failed to create GLFW window" << std::endl;
-        glfwTerminate();
+#include <math.h>
+
+#include "header/frame.hpp"
+
+#include <stdio.h>
+#include <fstream>
+
+int main() {
+    MyWindow window;
+
+    if (window.init_window(800, 600)) {
         return -1;
     }
-    glfwMakeContextCurrent(window);
-    // glad: load all OpenGL function pointers
-    // ---------------------------------------
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-    {
-        std::cout << "Failed to initialize GLAD" << std::endl;
-        return -1;
+
+    while(!window.should_close()) {
+        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+        glBegin(GL_TRIANGLES);
+        glVertex3f(0, 1, 0);
+        glVertex3f(-1, 0, 0);
+        glVertex3f(1, 0, 0);
+        glEnd();
+
+        window.swap_buffers();
+        window.polling_events();
     }
-    // render loop
-    // -----------
-    while (!glfwWindowShouldClose(window))
-    {
-        glClearColor(0.0f, 1.f, 0.0f,1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
-        // glfw: swap buffers and poll IO events (keyspressed/released, mouse moved etc.)
-        // ---------------------------------------------------
-        glfwSwapBuffers(window);
-        glfwPollEvents();
-    }
-    // glfw: terminate, clearing all previously allocated GLFWresources.
-    //---------------------------------------------------------------
-    glfwTerminate();
+
+    window.close();
+
     return 0;
 }

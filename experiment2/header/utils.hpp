@@ -39,13 +39,14 @@ inline double clamp(double x, double min, double max) {
     if (x > max) return max;
     return x;
 }
+inline int random_int(int min, int max) {
+    // Returns a random integer in [min,max].
+    return static_cast<int>(random_double(min, max+1));
+}
+
 // Common Headers
 
 #include "ray.hpp"
 #include "vec3.hpp"
-#include "color.hpp"
-#include "hittable_list.hpp"
-#include "sphere.hpp"
-#include "camera.hpp"
 
 #endif
