@@ -18,7 +18,7 @@ int cnt, cnt_p; // number of points
 
 GLfloat xpos, ypos;
 
-GLfloat radius, _x, _y, _z;
+GLfloat radius, radius_y, _x, _y, _z;
 
 const GLfloat PI = acos(-1);
 
@@ -31,9 +31,33 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
     glViewport(0, 0, width, height);
 }
 
+void process_input(GLFWwindow *window) {
+    if (mode != GO) return;
+
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+        radius += 0.1;
+    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+        radius -= 0.1;
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+        radius_y += 0.1;
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+        radius_y -= 0.1;
+    if (glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS)
+        _z += 0.1;
+    if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS)
+        _z -= 0.1;
+    if (glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS)
+        _x += 0.1;
+    if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS)
+        _x -= 0.1;
+    if (glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS)
+        _y += 0.1;
+    if (glfwGetKey(window, GLFW_KEY_U) == GLFW_PRESS)
+        _y -= 0.1;
+}
+
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
 	if (action != GLFW_PRESS)
-		return;
 	switch (key) {
         case GLFW_KEY_ESCAPE:
             glfwSetWindowShouldClose(window, GL_TRUE);
@@ -53,29 +77,10 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
                 }
             }
             break;
-        case GLFW_KEY_W:
-            radius += 0.2;
-            break;
-        case GLFW_KEY_S:
-            radius -= 0.2;
-            break;
-        case GLFW_KEY_J:
-            _z += 0.2;
-            break;
-        case GLFW_KEY_K:
-            _z -= 0.2;
-            break;
-        case GLFW_KEY_H:
-            _x += 0.2;
-            break;
-        case GLFW_KEY_L:
-            _x -= 0.2;
-            break;
-        case GLFW_KEY_U:
-            _y += 0.2;
-            break;
-        case GLFW_KEY_I:
-            _y -= 0.2;
+        case GLFW_KEY_R:
+            cnt = 0;
+            cnt_p = 0;
+            mode = DRAW;
             break;
         default:
             break;
@@ -135,13 +140,15 @@ int main() {
 
 
     while(!glfwWindowShouldClose(window)) {
+        process_input(window);
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+        glDisable(GL_LIGHTING);
+        glDisable(GL_LIGHT0);
         if (mode == DRAW) {
             glLoadIdentity();
-
-            glBegin(GL_LINE_LOOP);
+            glColor3f(1, 1, 1);
+            glBegin(GL_LINE_STRIP);
             for (int i = 0; i < cnt; i ++) {
                 glVertex3fv(points[i]);
             }
@@ -149,6 +156,7 @@ int main() {
         } else if (mode == PATH) {
             glLoadIdentity();
 
+            glColor3f(1, 1, 1);
             glBegin(GL_LINE_STRIP);
             for (int i = 0; i < cnt_p; i ++) {
                 glVertex3fv(path[i]);
@@ -174,13 +182,12 @@ int main() {
 
             glMatrixMode(GL_MODELVIEW);
 
-            x = glm::lookAt(glm::vec3(0.0, 1, -1), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0)) * glm::rotate(glm::translate(glm::mat4(1.0f), glm::vec3(_x, _y, _z)), radius, glm::vec3(1, 0, 0));
+            x = glm::translate(glm::mat4(1.0f), glm::vec3(_x, _y, _z));
+            x = glm::rotate(x, radius, glm::vec3(1, 0, 0));
+            x = glm::rotate(x, radius_y, glm::vec3(0, 1, 0));
+            x = glm::lookAt(glm::vec3(0.0, 0, -1), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0)) * x;
 
             glLoadMatrixf(glm::value_ptr(x));
-            glBegin(GL_LINE_STRIP);
-            glVertex3f(0, 1, 0);
-            glVertex3f(0, -1, 0);
-            glEnd();
 
             for (int k = 0; k < cnt - 1; k++) {
                 glBegin(GL_TRIANGLE_STRIP);
@@ -197,6 +204,8 @@ int main() {
                 }
                 glEnd();
             }
+            glDisable(GL_LIGHTING);
+            glDisable(GL_LIGHT0);
         }
 
         glfwSwapBuffers(window);
